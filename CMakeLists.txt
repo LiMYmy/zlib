@@ -153,16 +153,22 @@ if(MINGW)
     set(ZLIB_DLL_SRCS ${CMAKE_CURRENT_BINARY_DIR}/zlib1rc.obj)
 endif(MINGW)
 
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include)
+file(COPY ${CMAKE_CURRENT_BINARY_DIR}/zconf.h
+     DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/include)
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/zlib.h
+     DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
 add_library(zlib SHARED ${ZLIB_SRCS} ${ZLIB_DLL_SRCS} ${ZLIB_PUBLIC_HDRS} ${ZLIB_PRIVATE_HDRS})
 target_include_directories(zlib PUBLIC
-    ${ZLIB_PUBLIC_HDRS}
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 set_target_properties(zlib PROPERTIES DEFINE_SYMBOL ZLIB_DLL)
 set_target_properties(zlib PROPERTIES SOVERSION 1)
 
 add_library(zlibstatic STATIC ${ZLIB_SRCS} ${ZLIB_PUBLIC_HDRS} ${ZLIB_PRIVATE_HDRS})
 target_include_directories(zlibstatic PUBLIC
-    ${ZLIB_PUBLIC_HDRS}
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 if(NOT CYGWIN)
