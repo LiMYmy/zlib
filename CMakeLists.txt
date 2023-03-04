@@ -155,14 +155,14 @@ endif(MINGW)
 
 add_library(zlib SHARED ${ZLIB_SRCS} ${ZLIB_DLL_SRCS} ${ZLIB_PUBLIC_HDRS} ${ZLIB_PRIVATE_HDRS})
 target_include_directories(zlib PUBLIC
-    ${ZLIB_PRIVATE_HDRS}
+    ${ZLIB_PUBLIC_HDRS}
 )
 set_target_properties(zlib PROPERTIES DEFINE_SYMBOL ZLIB_DLL)
 set_target_properties(zlib PROPERTIES SOVERSION 1)
 
 add_library(zlibstatic STATIC ${ZLIB_SRCS} ${ZLIB_PUBLIC_HDRS} ${ZLIB_PRIVATE_HDRS})
 target_include_directories(zlibstatic PUBLIC
-    ${ZLIB_PRIVATE_HDRS}
+    ${ZLIB_PUBLIC_HDRS}
 )
 
 if(NOT CYGWIN)
